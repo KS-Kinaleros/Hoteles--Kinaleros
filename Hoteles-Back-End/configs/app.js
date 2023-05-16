@@ -6,6 +6,8 @@ const helmet = require('helmet')
 const cors = require('cors')
 const userRoutes = require('../src/user/user.routes')
 const extraServiceRoutes = require('../src/extraService/extraService.routes')
+const hotelRoutes = require('../src/hotel/hotel.routes')
+const roomRoutes = require('../src/room/room.routes')
 
 const app = express()
 const port = process.env.PORT || 3200
