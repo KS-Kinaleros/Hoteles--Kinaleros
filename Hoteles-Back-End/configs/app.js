@@ -8,6 +8,8 @@ const userRoutes = require('../src/user/user.routes')
 const extraServiceRoutes = require('../src/extraService/extraService.routes')
 const hotelRoutes = require('../src/hotel/hotel.routes')
 const roomRoutes = require('../src/room/room.routes')
+const eventRoutes = require('../src/event/event.routes')
+const reservationRoutes = require('../src/reservation/reservation.routes')
 
 const app = express()
 const port = process.env.PORT || 3200
@@ -19,6 +21,10 @@ app.use(helmet())
 app.use(morgan('dev'))
 app.use('/user', userRoutes)
 app.use('/extraService', extraServiceRoutes)
+app.use('/hotel', hotelRoutes)
+app.use('/room', roomRoutes)
+app.use('/event', eventRoutes)
+app.use('/reservation', reservationRoutes)
 
 exports.initServer = ()=>{
     app.listen(port);
