@@ -2,6 +2,7 @@
 
 const Bill = require('./bill.model')
 const Reservation = require('../reservation/reservation.model')
+const infoUser = ['name']
 
 exports.test = (req, res) => {
     res.send({ message: 'Test bill is running' })
@@ -79,7 +80,7 @@ exports.deleteBill = async (req, res) => {
 
 exports.getBill = async (req, res) => {
     try {
-        let bills = await Bill.find()
+        let bills = await Bill.find().populate('user', 'name')
         return res.send({ message: 'Facturas encontradas:', bills })
     } catch (err) {
         console.log(err)

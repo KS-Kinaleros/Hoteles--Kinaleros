@@ -20,10 +20,10 @@ const hotelSchema = mongoose.Schema({
 /*         required: true */
     },
     ///ver si tiene que llevar un user admin
-    user:{
+    admin:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: true
+/*         required: true */
     },
     service:{
         type: mongoose.Schema.Types.ObjectId,

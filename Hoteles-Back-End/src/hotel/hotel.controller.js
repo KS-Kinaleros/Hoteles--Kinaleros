@@ -18,7 +18,7 @@ exports.addHotel = async (req, res) => {
         if (existHotel) return res.send({ message: 'Hotel ya creado' })
 
         //validar que el user que se agrega sea de rol admin
-        let user = await User.findById({ _id: data.user })
+        let user = await User.findById({ _id: data.admin })
         if (!user || user.role !== 'ADMIN') return res.status(404).send({ message: 'El usuario no es administrador' })
 
         //guardar hotel
@@ -63,7 +63,7 @@ exports.deleteHotel = async (req, res) => {
 //obtener hoteles
 exports.getHotels = async (req, res) => {
     try {
-        let hotel = await Hotel.find();
+        let hotel = await Hotel.find().populate('admin', 'name')
         return res.send({ message: 'Hoteles Encontrados', hotel })
     } catch (err) {
         console.log(err)

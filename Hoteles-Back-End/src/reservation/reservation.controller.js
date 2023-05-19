@@ -10,10 +10,15 @@ exports.test = (req, res) => {
 //guardar
 exports.addReservation = async (req, res) => {
     try {
+        let userId = req.user.sub
         let data = req.body
         //calcular la cantidad de dias que se quedara
         let entryDate = new Date(data.entryDate);
         let departureDate = new Date(data.departureDate);
+
+        console.log(entryDate)
+        console.log(departureDate)
+
         let millisecondsPerDay = 24 * 60 * 60 * 1000; // Milisegundos en un día
         let totalDays = Math.round(Math.abs((departureDate.getTime() - entryDate.getTime()) / millisecondsPerDay));
 
@@ -23,21 +28,25 @@ exports.addReservation = async (req, res) => {
         console.log(price)
 
         room.availability = 'ocupada'
-        await room.save()
+        await Room.findOneAndUpdate(
+            {_id: data.room},
+            {availability: 'ocupada'}
+        )
 
         let reservation = new Reservation({
             entryDate: data.entryDate,
             departureDate: data.departureDate,
-            user: data.user,
+            user: userId,
             room: data.room,
             total: price
         }
         )
 
         await reservation.save()
-        return res.status(201).send({ message: 'Resrvacion creada' })
+        return res.status(201).send({ message: 'Reservacion creada' })
     } catch (err) {
         console.log(err)
+        return res.status(500).send({message:'Error', err})
     }
 }
 
@@ -126,8 +135,18 @@ exports.deleteReservation = async (req, res) => {
 //obtener
 exports.getReservation = async (req, res) => {
     try {
-        let reservation = await Reservation.find()
+        let reservation = await Reservation.find().populate('room', 'name').populate('user', 'name')
         return res.send({ message: 'Reservaciones encontradas', reservation })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.getReservatinoUser = async(req, res)=>{
+    try {
+        let userToken = req.user.sub
+        let reservacion = await Reservation.find({ user: userToken }).populate('room', 'name')
+        return res.send({message:'Reservacion encontrada', reservacion})
     } catch (err) {
         console.log(err)
     }

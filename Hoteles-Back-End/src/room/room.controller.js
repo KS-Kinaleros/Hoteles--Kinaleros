@@ -2,6 +2,7 @@
 
 const Room = require('./room.model')
 const Reservation = require('../reservation/reservation.model')
+const Hotel = require('../hotel/hotel.model')
 
 exports.test = (req, res) => {
     res.send({ message: 'Test room is running' })
@@ -9,9 +10,16 @@ exports.test = (req, res) => {
 
 exports.addRoom = async (req, res) => {
     try {
+        /* let userToken = req.user.sub */
         let data = req.body
+
         let existRoom = await Room.findOne({ name: data.name })
         if (existRoom) return res.send({ message: 'Habitacion ya ha sido creado' })
+
+        /* let existHotel = await Hotel.findOne({ hotel: data.hotel})
+        if(!existHotel) return res.status(404).send({message:'Hotel no existe callese'})
+        if( userToken != Hotel.admin) return res.status(404).send({message:'El usuario no es admin de este hotel'})  */
+
         let room = new Room(data)
         await room.save()
         return res.status(201).send({ message: 'Habitacion creada' })
@@ -90,5 +98,32 @@ exports.getRoomsOcupada = async (req, res) => {
         return res.send({ message: 'Habitaciones encontradas:', room })
     } catch (err) {
         console.error(err)
+    }
+}
+
+exports.getRoomAdmin = async(req, res)=>{
+    try {
+        let userToken = req.user.sub
+
+        let role = req.user.role
+        if(role == 'OWNER'){
+            let rooms = await Room.find()
+            return res.send({message:'Habitaciones', rooms})
+        }
+
+        let hotel = await Hotel.findOne({ admin: userToken})
+        let rooms = await Room.find({ hotel: hotel.id})
+        return res.send({message:'Habitacion entradas', rooms})
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+exports.getRoomLibres = async(req, res)=>{
+    try {
+        let rooms = await Room.find({ availability: 'libre'})
+        res.send({message:'Habitaciones encontradas', rooms})
+    } catch (err) {
+        console.log(err)
     }
 }
