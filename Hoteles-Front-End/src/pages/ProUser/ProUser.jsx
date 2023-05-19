@@ -98,7 +98,7 @@ export const ProUser = () => {
                                                                 <td>{departureDate}</td>
                                                                 <td>{room?.name}</td>
                                                                 <td>{total}</td>
-                                                                <td> <button onClick={()=> elimRe(_id)} className='btn btn-danger'>Eliminar</button></td>
+                                                                <td> <button onClick={()=> elimRe(_id)} className='btn btn-danger'>Cancerlar</button></td>
                                                             </tr>
                                                         )
                                                     })

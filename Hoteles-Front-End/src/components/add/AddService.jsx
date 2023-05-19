@@ -50,17 +50,17 @@ export const AddService = () => {
                                 <input onChange={handleChange} name='name' type="text" className="form-control" required />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="" className="form-label">Description</label>
+                                <label htmlFor="" className="form-label">Descripcion</label>
                                 <input onChange={handleChange} name='description' type="text" className="form-control" required />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="" className="form-label">Price</label>
+                                <label htmlFor="" className="form-label">Precio</label>
                                 <input onChange={handleChange} name='price' type="number" className="form-control" required />
                             </div>
 
                             {/* botones para cancelar o agregar */}
                             <div className='modal-footer'>
-                                <button onClick={() => addService()} type="submit" className="btn btn-primary">Add Cellar</button>
+                                <button onClick={() => addService()} type="submit" className="btn btn-primary">Add Service</button>
                                 <button type="submit" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </div>

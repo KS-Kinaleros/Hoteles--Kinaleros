@@ -100,7 +100,7 @@ export const AddRoom = () => {
                             </div>
                             {/* botones para cancelar o agregar */}
                             <div className='modal-footer'>
-                                <button onClick={() => addRoom()} type="submit" className="btn btn-primary">Add Cellar</button>
+                                <button onClick={() => addRoom()} type="submit" className="btn btn-primary">Add Room</button>
                                 <button type="submit" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </div>

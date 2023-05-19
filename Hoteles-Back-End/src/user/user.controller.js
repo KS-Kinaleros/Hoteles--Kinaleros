@@ -191,3 +191,13 @@ exports.getUserId = async (req, res) => {
         console.log(err)
     }
 }
+
+exports.getAdminUsers = async (req, res) => {
+    try {
+      const adminUsers = await User.find({ role: "admin" });
+      return res.send({ message: "Admin users found",  adminUsers });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send({ message: "Error getting admin users" });
+    }
+  };

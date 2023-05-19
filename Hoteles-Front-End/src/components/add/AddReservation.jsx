@@ -56,7 +56,7 @@ export const AddReservation = ({_id}) => {
                             </div>
                             {/* botones para cancelar o agregar */}
                             <div className='modal-footer'>
-                                <button onClick={() => addReservacion()} type="submit" className="btn btn-primary">Add reservation</button>
+                                <button onClick={() => addReservacion()} type="submit" className="btn btn-primary">Add Reservation</button>
                                 <button type="submit" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </div>

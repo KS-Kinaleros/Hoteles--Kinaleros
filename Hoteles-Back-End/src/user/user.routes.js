@@ -12,6 +12,7 @@ api.post('/login', userController.login)
 api.put('/update/:id', userController.updateUser)
 api.delete('/delete/:id', userController.deleteUser)
 api.get('/get', userController.getUsers)
+api.get('/getAd', userController.getAdminUsers)
 api.get('/getUserId', ensureAuth, userController.getUserId)
 api.put('/updateUser', ensureAuth, userController.updateToken)
 

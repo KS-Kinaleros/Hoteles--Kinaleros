@@ -1,13 +1,9 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
-export const AddEvent = () => {
-    const title = "Agregar Eventos"
 
-    const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('token')
-    }
+export const UpService = ({ _id }) => {
+    const title = 'Update Service'
 
     const [form, setForm] = useState({
         name: '',
@@ -24,19 +20,18 @@ export const AddEvent = () => {
 
     }
 
-    const addEvent = async () => {
+    const upService = async () => {
         try {
-            const { data } = await axios.post('http://localhost:3000/event/save', form)
+            const { data } = await axios.put(`http://localhost:3000/extraService/update/${_id}`, form)
             alert(data.message)
         } catch (err) {
             console.log(err)
-            alert(err.response.data.message)
         }
     }
 
     return (
         <>
-            <div className="modal" tabIndex="-1" id="myModal">
+            <div className="modal" tabIndex="-1" id="myService">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         {/* titulo */}
@@ -47,7 +42,7 @@ export const AddEvent = () => {
                         {/* formulario */}
                         <div className='modal-body'>
                             <div className="mb-3">
-                                <label htmlFor="" className="form-label">Nombre</label>
+                                <label htmlFor="" className="form-label">Name</label>
                                 <input onChange={handleChange} name='name' type="text" className="form-control" required />
                             </div>
                             <div className="mb-3">
@@ -55,17 +50,13 @@ export const AddEvent = () => {
                                 <input onChange={handleChange} name='description' type="text" className="form-control" required />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="" className="form-label">Tipo de Evento</label>
-                                <input onChange={handleChange} name='typeEvent' type="text" className="form-control" required />
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="" className="form-label">dateEvent</label>
-                                <input onChange={handleChange} name='dateEvent' type="date" className="form-control" required />
+                                <label htmlFor="" className="form-label">Precio</label>
+                                <input onChange={handleChange} name='price' type="number" className="form-control" required />
                             </div>
 
                             {/* botones para cancelar o agregar */}
                             <div className='modal-footer'>
-                                <button onClick={() => addEvent()} type="submit" className="btn btn-primary">Add Event</button>
+                                <button onClick={()=> upService()} type="submit" className="btn btn-warning" >Update Service</button>
                                 <button type="submit" className="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </div>
